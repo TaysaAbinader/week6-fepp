@@ -1,22 +1,27 @@
-import { useState } from "react";
-import useSignup from "../hooks/usesSignup";
+import useSignup from "../hooks/useSignup";
+import useField from "../hooks/useField";
 
 const SignupComponent = ({ setIsAuthenticated }) => {
-  const { email, setEmail, password, setPassword, handleSignup } = useSignup(setIsAuthenticated);
-  const [password2, setPassword2] = useState("");
+  const email = useField("email");
+  const password = useField("password");
+  const password2 = useField("password");
+
+  const {handleSignup} =useSignup(setIsAuthenticated);
 
   //The signup form includes handleclicka Confirm Password (`password2`) field.
 //Frontend validation ensures that the user cannot submit the form unless
 //both passwords match, providing immediate feedback password do not match.
 
   const handleClick = async () =>{
-    if(password !== password2){
+    if(password.value !== password2.value){
       alert("Passwords do not match!");
-    }else{
-      handleSignup();
+      return;
     }
+    
+    //call signup with values from useField
+    handleSignup(email.value, password.value);
 
-  }
+  };
 
 
   return (
@@ -25,27 +30,21 @@ const SignupComponent = ({ setIsAuthenticated }) => {
       <label>
         email:
         <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          {...email}
         />
       </label>
       <br />
       <label>
         Password:
         <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          {...password}
         />
       </label>
 
     <label>
         Confirm Password:
         <input
-          type="password"
-          value={password2}
-          onChange={(e) => setPassword2(e.target.value)}
+          {...password2}
         />
         </label>
       <br />
