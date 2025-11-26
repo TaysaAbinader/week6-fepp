@@ -1,7 +1,15 @@
+import { useState } from "react";
 import useSignup from "../hooks/usesSignup";
 
 const SignupComponent = ({ setIsAuthenticated }) => {
   const { email, setEmail, password, setPassword, handleSignup } = useSignup(setIsAuthenticated);
+  const [password2, setPassword2] = useState("");
+
+  const handleClick = async () =>{
+    if(password !== password2){
+      alert("Passwords do not match!");
+    }else(handleSignup())
+  }
   
 
   return (
@@ -24,8 +32,17 @@ const SignupComponent = ({ setIsAuthenticated }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
+
+    <label>
+        Confirm Password:
+        <input
+          type="password"
+          value={password2}
+          onChange={(e) => setPassword2(e.target.value)}
+        />
+        </label>
       <br />
-      <button onClick={handleSignup}>Sign Up</button>
+      <button onClick={handleClick}>Sign Up</button>
     </div>
   );
 };

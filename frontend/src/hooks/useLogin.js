@@ -30,7 +30,7 @@ const useLogin = function (setIsAuthenticated) {
       console.error("Error during login:", error);
     }
   }
-};
+
 
 return {
     email,
@@ -39,5 +39,5 @@ return {
     setPassword,
     handleLogin,
   };
-
+};
 export default useLogin;
