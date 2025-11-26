@@ -7,7 +7,7 @@ const useLogin = function (setIsAuthenticated) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (email, password) => {
     try {
       const response = await fetch("/api/users/login", {
         method: "POST",

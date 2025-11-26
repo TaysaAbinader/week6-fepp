@@ -1,7 +1,14 @@
 import useLogin from "../hooks/useLogin";
+import useField from "../hooks/useField";
 
 const LoginComponent = ({ setIsAuthenticated }) => {
-  const {email, setEmail, password, setPassword, handleLogin} = useLogin(setIsAuthenticated);
+  const {reset: emailReset, ...email} = useField("email");
+  const {reset: passwordReset, ...password} = useField("password");
+  const {handleLogin} = useLogin(setIsAuthenticated);
+
+  const handleSubmit = () => {
+    handleLogin(email.value, password.value);
+  }
 
   return (
     <div className="form-container">
@@ -9,22 +16,18 @@ const LoginComponent = ({ setIsAuthenticated }) => {
       <label>
         email:
         <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          {...email}
         />
       </label>
       <br />
       <label>
         Password:
         <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          {...password}
         />
       </label>
       <br />
-      <button onClick={handleLogin}>Log In</button>
+      <button onClick={handleSubmit}>Log In</button>
     </div>
   );
 };
