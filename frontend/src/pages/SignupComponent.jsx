@@ -5,6 +5,10 @@ const SignupComponent = ({ setIsAuthenticated }) => {
   const { email, setEmail, password, setPassword, handleSignup } = useSignup(setIsAuthenticated);
   const [password2, setPassword2] = useState("");
 
+  //The signup form includes handleclicka Confirm Password (`password2`) field. 
+//Frontend validation ensures that the user cannot submit the form unless
+//both passwords match, providing immediate feedback password do not match.
+
   const handleClick = async () =>{
     if(password !== password2){
       alert("Passwords do not match!");
@@ -48,3 +52,4 @@ const SignupComponent = ({ setIsAuthenticated }) => {
 };
 
 export default SignupComponent;
+
